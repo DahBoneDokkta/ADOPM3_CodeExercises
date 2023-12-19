@@ -34,6 +34,12 @@ class Program
 
         #region write cellar to disk
         //Your code
+        string filePath = fname("WineCellar.txt");
+
+        using (TextWriter writer = new StreamWriter(filePath))
+        {
+            writer.WriteLine($"Winecellar: {wineCellar.Name}");
+        }
 
         #endregion
 

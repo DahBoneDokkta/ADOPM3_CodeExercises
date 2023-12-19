@@ -21,20 +21,44 @@ namespace Delegate1
                 cities[i] = names[rnd.Next(0, names.Length)].Trim();
             }
 
-            WriteLists(numbers, cities);
             #endregion
 
             #region Exercises 1-4
             Console.WriteLine("Delegates I Exercises");
-            Array.ForEach(numbers, WriteInt);
+            Array.ForEach<int>(numbers, Write<int>);
+            Array.ForEach<string>(cities, Write<string>);
+
+            //Console.ReadKey();
             #endregion
 
             #region Exercises 5-6
             Console.WriteLine("\nDelegates II Exercises");
+            var evenNumbers = Array.FindAll(numbers, FindEven);
+            foreach (var evenNumber in evenNumbers)
+            {
+                Console.WriteLine(evenNumber);
+            }
+
+            //Array.FindAll(cities, FindCityLength);
+            string[] longCities = Array.FindAll(cities, FindCityLength);
+            Console.WriteLine("\nCities longer than 6 letters: \n");
+            Array.ForEach<string>(longCities, Write<string>);
             #endregion
 
             #region Exercises 7-8
             Console.WriteLine("\nDelegates III Exercises");
+            
+            Console.WriteLine("\nNumbers over 500! \n");
+            //var MaxVal = 500;
+            int[] overFiveHundred = Array.FindAll(numbers, FindNumberOver500);
+            foreach (var number in overFiveHundred)
+            {
+                Console.WriteLine($"{number, -20}");
+            }
+
+            Console.WriteLine("The last city with 8 letters!\n");
+            var lastCity = Array.FindLast(cities, FindLastCityOver8Letters);
+            Console.WriteLine(lastCity);
             #endregion
         }
 
@@ -54,16 +78,30 @@ namespace Delegate1
         #endregion
 
         #region Exercises 1-4
-        static void WriteInt(int i)
+
+        static void Write<T>(T i)
         {
-            Console.Write($"{i,-8}");
+            Console.Write($"{i, -20}");
         }
         #endregion
 
         #region Exercises 5-6
+        static bool FindEven(int i)
+        {
+            if (i % 2 == 0)
+            {
+                return true;
+            }
+            return false;
+        }
         #endregion
 
         #region Exercises 7-8
+        static bool FindCityLength(string city) => city.Length > 6;
+        static bool FindNumberOver500(int number) => number > 500;
+        static bool FindLastCityOver8Letters(string city) => city.Length > 8;
+              
+
         #endregion
 
     }
